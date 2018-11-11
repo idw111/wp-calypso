@@ -5,12 +5,14 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { localize } from 'i18n-calypso';
+import Gridicon from 'gridicons';
 
 /**
  * Internal dependencies
  */
 import Card from 'components/card';
 import FormButton from 'components/forms/form-button';
+import Button from 'components/button';
 
 export class PendingListItem extends Component {
 	onComplete = () => {};
@@ -28,9 +30,10 @@ export class PendingListItem extends Component {
 						<div className="pending-payments__list-item-purchase-type">{ paymentType }</div>
 						<div className="pending-payments__list-item-purchase-date">{ totalCostDisplay }</div>
 						<div className="pending-payments__list-item-actions">
-							<FormButton type="button" isPrimary={ false } onClick={ this.onSupport }>
-								{ translate( 'Contact Support' ) }
-							</FormButton>
+							<Button isPrimary={ false } href="/help/contact">
+								<Gridicon icon="help" />
+								<span>{ translate( 'Contact Support' ) }</span>
+							</Button>
 							<FormButton type="button" isPrimary={ false } onClick={ this.onAbandon }>
 								{ translate( 'Abandon Payment' ) }
 							</FormButton>
