@@ -85,7 +85,7 @@ export class PendingPayments extends Component {
 			content = (
 				<div>
 					{ pendingPayments.map( purchase => (
-						<PendingListItem key={ purchase.siteId } purchase={ purchase } />
+						<PendingListItem key={ purchase.siteId } { ...purchase } />
 					) ) }
 				</div>
 			);

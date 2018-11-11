@@ -14,12 +14,9 @@ import { PendingListItem } from '../pending-list-item';
 describe( 'PendingListItem', () => {
 	const defaultProps = {
 		translate: x => x,
-		purchase: {
-			siteId: '123',
-			productName: 'WordPress.com Business Plan',
-			paymentType: 'Soforte',
-			totalCostDisplay: '$204',
-		},
+		productName: 'WordPress.com Business Plan',
+		paymentType: 'Soforte',
+		totalCostDisplay: '$204',
 	};
 
 	const wrapper = shallow( <PendingListItem { ...defaultProps } /> );
