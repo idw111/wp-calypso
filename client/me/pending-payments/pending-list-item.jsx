@@ -11,13 +11,11 @@ import Gridicon from 'gridicons';
  * Internal dependencies
  */
 import Card from 'components/card';
-import FormButton from 'components/forms/form-button';
 import Button from 'components/button';
 
 export class PendingListItem extends Component {
 	onComplete = () => {};
 	onAbandon = () => {};
-	onSupport = () => {};
 
 	render = () => {
 		const { productName, paymentType, totalCostDisplay, translate } = this.props;
@@ -34,12 +32,12 @@ export class PendingListItem extends Component {
 								<Gridicon icon="help" />
 								<span>{ translate( 'Contact Support' ) }</span>
 							</Button>
-							<FormButton type="button" isPrimary={ false } onClick={ this.onAbandon }>
+							<Button isPrimary={ false } onClick={ this.onAbandon }>
 								{ translate( 'Abandon Payment' ) }
-							</FormButton>
-							<FormButton type="button" isPrimary={ true } onClick={ this.onComplete }>
+							</Button>
+							<Button isPrimary={ true } onClick={ this.onComplete }>
 								{ translate( 'Complete Payment' ) }
-							</FormButton>
+							</Button>
 						</div>
 					</div>
 				</span>
