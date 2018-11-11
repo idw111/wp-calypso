@@ -81,6 +81,7 @@ describe( 'PendingPayments', () => {
 				productName: 'WordPress.com Business Plan',
 				paymentType: 'Soforte',
 				totalCostDisplay: '$204',
+				completePaymentUrl: 'https://complete',
 			},
 		];
 		const wrapper = shallow(
@@ -96,7 +97,7 @@ describe( 'PendingPayments', () => {
 			'Main.pending-payments PurchasesHeader[section="pending"]',
 
 			// Specific
-			'Main.pending-payments Localized(PendingListItem)',
+			'Main.pending-payments Connect(Localized(PendingListItem))',
 		];
 
 		rules.forEach( rule => {

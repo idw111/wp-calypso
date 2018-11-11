@@ -5,6 +5,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { localize } from 'i18n-calypso';
+import { connect } from 'react-redux';
 import Gridicon from 'gridicons';
 
 /**
@@ -12,6 +13,7 @@ import Gridicon from 'gridicons';
  */
 import Card from 'components/card';
 import Button from 'components/button';
+import { errorNotice, infoNotice } from 'state/notices/actions';
 
 export class PendingListItem extends Component {
 	onAbandon = () => {};
@@ -23,6 +25,7 @@ export class PendingListItem extends Component {
 			totalCostDisplay,
 			completePaymentUrl,
 			translate,
+			onAbandonPayment,
 		} = this.props;
 
 		return (
@@ -37,7 +40,7 @@ export class PendingListItem extends Component {
 								<Gridicon icon="help" />
 								<span>{ translate( 'Contact Support' ) }</span>
 							</Button>
-							<Button isPrimary={ false } onClick={ this.onAbandon }>
+							<Button isPrimary={ false } onClick={ onAbandonPayment }>
 								{ translate( 'Abandon Payment' ) }
 							</Button>
 							<Button isPrimary={ true } href={ completePaymentUrl }>
@@ -58,4 +61,19 @@ PendingListItem.propTypes = {
 	completePaymentUrl: PropTypes.string.isRequired,
 };
 
-export default localize( PendingListItem );
+export default connect(
+	() => ( {} ),
+	( dispatch, props ) => ( {
+		onAbandonPayment: () => {
+			// todo:
+			// dispatch( abandonPayment( props.paymentId ) );
+			console.log( 'Payment abandoned' );
+		},
+		showInfoNotice: ( info, options ) =>
+			dispatch( infoNotice( info, Object.assign( {}, options, { id: 'pending-payments-item' } ) ) ),
+		showErrorNotice: ( error, options ) =>
+			dispatch(
+				errorNotice( error, Object.assign( {}, options, { id: 'pending-payments-item' } ) )
+			),
+	} )
+)( localize( PendingListItem ) );
