@@ -14,11 +14,16 @@ import Card from 'components/card';
 import Button from 'components/button';
 
 export class PendingListItem extends Component {
-	onComplete = () => {};
 	onAbandon = () => {};
 
 	render = () => {
-		const { productName, paymentType, totalCostDisplay, translate } = this.props;
+		const {
+			productName,
+			paymentType,
+			totalCostDisplay,
+			completePaymentUrl,
+			translate,
+		} = this.props;
 
 		return (
 			<Card className={ 'pending-payments__list-item' }>
@@ -35,7 +40,7 @@ export class PendingListItem extends Component {
 							<Button isPrimary={ false } onClick={ this.onAbandon }>
 								{ translate( 'Abandon Payment' ) }
 							</Button>
-							<Button isPrimary={ true } onClick={ this.onComplete }>
+							<Button isPrimary={ true } href={ completePaymentUrl }>
 								{ translate( 'Complete Payment' ) }
 							</Button>
 						</div>
@@ -50,6 +55,7 @@ PendingListItem.propTypes = {
 	productName: PropTypes.string.isRequired,
 	paymentType: PropTypes.string.isRequired,
 	totalCostDisplay: PropTypes.string.isRequired,
+	completePaymentUrl: PropTypes.string.isRequired,
 };
 
 export default localize( PendingListItem );

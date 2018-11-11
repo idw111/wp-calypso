@@ -17,6 +17,7 @@ describe( 'PendingListItem', () => {
 		productName: 'WordPress.com Business Plan',
 		paymentType: 'Soforte',
 		totalCostDisplay: '$204',
+		completePaymentUrl: 'https://complete',
 	};
 
 	const wrapper = shallow( <PendingListItem { ...defaultProps } /> );
@@ -31,6 +32,7 @@ describe( 'PendingListItem', () => {
 		'.pending-payments__list-item-details .pending-payments__list-item-actions',
 		'.pending-payments__list-item-actions Button[href="/help/contact"][isPrimary=false]',
 		'Button[href="/help/contact"] [icon="help"]',
+		'.pending-payments__list-item-actions Button[href="https://complete"][isPrimary=true]',
 	];
 
 	rules.forEach( rule => {
