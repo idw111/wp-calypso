@@ -37,7 +37,7 @@ describe( 'babel-plugin-transform-wpcalypso-async', () => {
 
 				expect( code ).toBe(
 					'var _ref = function (callback) {\n  import(\n  /*webpackChunkName: "async-load-foo"*/\n  "foo").then(function load(mod) {\n' +
-						'    callback(mod.__esModule ? mod.default : mod);\n' +
+						'    callback(mod.default);\n' +
 						'  });\n};\n\nexport default (() => <AsyncLoad require={_ref} />);'
 				);
 			} );
@@ -48,8 +48,7 @@ describe( 'babel-plugin-transform-wpcalypso-async', () => {
 				const code = transform( 'export default () => <AsyncLoad require="foo" />;', false );
 
 				expect( code ).toBe(
-					'var _ref = function (callback) {\n  callback(require("foo").__esModule ? require("foo").default ' +
-						': require("foo"));\n};\n\nexport default (() => <AsyncLoad require={_ref} />);'
+					'var _ref = function (callback) {\n  callback(require("foo").default);\n};\n\nexport default (() => <AsyncLoad require={_ref} />);'
 				);
 			} );
 		} );
@@ -79,8 +78,7 @@ describe( 'babel-plugin-transform-wpcalypso-async', () => {
 				const code = transform( 'asyncRequire( "foo/bar", cb );' );
 
 				expect( code ).toBe(
-					'import(\n/*webpackChunkName: "async-load-foo-bar"*/\n"foo/bar").then(function load(mod) {\n  cb(mod.__esModule ? ' +
-						'mod.default : mod);\n});'
+					'import(\n/*webpackChunkName: "async-load-foo-bar"*/\n"foo/bar").then(function load(mod) {\n  cb(mod.default);\n});'
 				);
 			} );
 		} );
@@ -89,17 +87,13 @@ describe( 'babel-plugin-transform-wpcalypso-async', () => {
 			test( 'should call require directly when no callback', () => {
 				const code = transform( 'asyncRequire( "foo" );', false );
 
-				expect( code ).toBe(
-					'require("foo").__esModule ? require("foo").default : require("foo");'
-				);
+				expect( code ).toBe( 'require("foo").default;' );
 			} );
 
 			test( 'should invoke callback with require', () => {
 				const code = transform( 'asyncRequire( "foo", cb );', false );
 
-				expect( code ).toBe(
-					'cb(require("foo").__esModule ? require("foo").default : require("foo"));'
-				);
+				expect( code ).toBe( 'cb(require("foo").default);' );
 			} );
 		} );
 	} );
